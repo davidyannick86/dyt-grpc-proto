@@ -1,0 +1,37 @@
+version: '3'
+
+env:
+  GO_MODULE: "github.com/davidyannick86/dyt-grpc-proto"
+
+tasks:
+  clean:
+    desc: "Clean generated code"
+    cmds:
+    - rm -rf ./protogen
+    - mkdir -p ./protogen/go
+    platforms: [ "linux", "darwin" ]
+
+  protoc-go:
+    desc: "Generate protobuf and gRPC code"
+    cmds:
+    - |
+      protoc --go_opt=module=${GO_MODULE} --go_out=. \
+        --go-grpc_opt=module=${GO_MODULE} --go-grpc_out=. \
+        ./proto/hello/*.proto ./proto/payment/*.proto \
+        ./proto/transaction/*.proto ./proto/bank/*.proto \
+        ./proto/bank/type/*.proto
+
+  build:
+    desc: "Clean and generate code"
+    deps: [ "clean", "protoc-go" ]
+
+  pipeline-init:
+    desc: "Install pipeline tools"
+    cmds:
+    - sudo apt-get install -y protobuf-compiler golang-goprotobuf-dev
+    - go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+    - go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+
+  pipeline-build:
+    desc: "Initialize pipeline and build"
+    deps: [ "pipeline-init", "build" ]
