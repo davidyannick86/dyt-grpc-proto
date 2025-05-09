@@ -21,6 +21,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// HelloRequest is the request message for the SayHello RPC.
 type HelloRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
@@ -73,6 +74,7 @@ func (x *HelloRequest) GetAge() uint32 {
 	return 0
 }
 
+// HelloResponse is the response message for the SayHello RPC.
 type HelloResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Greet         string                 `protobuf:"bytes,1,opt,name=greet,proto3" json:"greet,omitempty"`

@@ -27,6 +27,8 @@ const (
 // HelloServiceClient is the client API for HelloService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// HelloService is the service that provides the SayHello RPC.
 type HelloServiceClient interface {
 	SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloResponse, error)
 	SayManyHellos(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[HelloResponse], error)
@@ -86,6 +88,8 @@ type HelloService_SayHelloToEveryoneClient = grpc.ClientStreamingClient[HelloReq
 // HelloServiceServer is the server API for HelloService service.
 // All implementations must embed UnimplementedHelloServiceServer
 // for forward compatibility.
+//
+// HelloService is the service that provides the SayHello RPC.
 type HelloServiceServer interface {
 	SayHello(context.Context, *HelloRequest) (*HelloResponse, error)
 	SayManyHellos(*HelloRequest, grpc.ServerStreamingServer[HelloResponse]) error
