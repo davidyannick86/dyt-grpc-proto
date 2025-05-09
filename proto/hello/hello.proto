@@ -6,15 +6,18 @@ package hello;
 // github.com/<username>/<repo>/protogen/go/... 
 option go_package = "github.com/davidyannick86/dyt-grpc-proto/protogen/go/hello";
 
+// HelloRequest is the request message for the SayHello RPC.
 message HelloRequest { 
   string name = 1;
   uint32 age = 17;
 }
 
+// HelloResponse is the response message for the SayHello RPC.
 message HelloResponse { 
   string greet = 1;
 }
 
+// HelloService is the service that provides the SayHello RPC.
 service HelloService {
   rpc SayHello(HelloRequest) returns (HelloResponse) {}
   rpc SayManyHellos(HelloRequest) returns (stream HelloResponse) {}
